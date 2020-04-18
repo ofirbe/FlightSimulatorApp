@@ -50,26 +50,33 @@ namespace FlightSimulatorApp
             MyFlightSimulatorModel model = new MyFlightSimulatorModel(telnetCli);
             this.vm = new ConnectionViewModel(model);
 
+            // bind the error light to the vm
+            this.errorLight.DataContext = new DashboardVM(model);
+
             // get the ip and port from the textbox
             string ip = this.IPTextbox.Text;
             string port = this.PortTextbox.Text;
 
-            // converting the port from string to int
-            int intPort = int.Parse(port);
-
-            // connecting to the server
-            int isSucceed = this.vm.model.connect(ip, intPort);
-            if (isSucceed == 1)
+            try
             {
-                this.vm.model.start();
-                this.vm.model.startQueue();
-                AppWindow app = new AppWindow(model, this, this.vm);
-                app.Show();
-                this.Hide();
-            }
+                // converting the port from string to int
+                int intPort = int.Parse(port);
 
-            // bind the error light to the vm
-            this.errorLight.DataContext = new DashboardVM(model);
+                // connecting to the server
+                int isSucceed = this.vm.model.connect(ip, intPort);
+                if (isSucceed == 1)
+                {
+                    this.vm.model.start();
+                    this.vm.model.startQueue();
+                    AppWindow app = new AppWindow(model, this, this.vm);
+                    app.Show();
+                    this.Hide();
+                }
+            }
+            catch
+            {
+                this.vm.model.ConnectionError = "Blue";
+            }
         }
 
         /*
