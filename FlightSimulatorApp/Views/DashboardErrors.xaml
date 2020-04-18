@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="FlightSimulatorApp.Views.DashboardErrors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="263" Height="280.6">
+    <Canvas Margin="0,0,0.4,0.4">
+        <Ellipse Stroke="Black" Fill="{Binding VM_SendingMessageError}" HorizontalAlignment="Left" StrokeThickness="2"  Height="34" VerticalAlignment="Top" Width="30" Grid.Column="1" Canvas.Left="216" Canvas.Top="61" RenderTransformOrigin="0.42,0.176">
+            <Ellipse.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="Green" BlurRadius="25" />
+            </Ellipse.Effect>
+        </Ellipse>
+        <Ellipse Stroke="Black" Fill="{Binding VM_InvalidValueError}" HorizontalAlignment="Left" StrokeThickness="2"  Height="34" VerticalAlignment="Top" Width="30" Grid.Column="1" Canvas.Left="216" Canvas.Top="227" RenderTransformOrigin="0.42,0.176">
+            <Ellipse.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="Orange" BlurRadius="25" />
+            </Ellipse.Effect>
+        </Ellipse>
+        <Ellipse Stroke="Black" Fill="{Binding VM_TimeOutError}" HorizontalAlignment="Left" StrokeThickness="2"  Height="34" VerticalAlignment="Top" Width="30" Grid.Column="1" Canvas.Left="216" Canvas.Top="174" RenderTransformOrigin="0.42,0.176">
+            <Ellipse.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="#FFE8FF00" BlurRadius="25" />
+            </Ellipse.Effect>
+        </Ellipse>
+        <Ellipse Stroke="Black" Fill="{Binding VM_ConnectionError}" HorizontalAlignment="Left" StrokeThickness="2"  Height="34" VerticalAlignment="Top" Width="30" Grid.Column="1" Canvas.Left="216" Canvas.Top="10">
+            <Ellipse.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="LightBlue" BlurRadius="25" />
+            </Ellipse.Effect>
+        </Ellipse>
+        <Ellipse Stroke="Black" Fill="{Binding VM_MapEdgeError}" HorizontalAlignment="Left" StrokeThickness="2"  Height="34" VerticalAlignment="Top" Width="30" Grid.Column="1" Canvas.Left="216" Canvas.Top="118">
+            <Ellipse.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="Red" BlurRadius="25" />
+            </Ellipse.Effect>
+        </Ellipse>
+        <Label Content="Map End" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="95" Grid.Column="1" Canvas.Left="9" Canvas.Top="115"/>
+        <Label Content="Sending Message Error"  FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="193" Grid.Column="1" Canvas.Left="9" Canvas.Top="61"/>
+        <Label Content="Connection Error"  FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="167" Grid.Column="1" Canvas.Left="9" Canvas.Top="9"/>
+        <Label Content="Time Out Error"  FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="167" Grid.Column="1" Canvas.Left="10" Canvas.Top="171"/>
+        <Label Content="Invalid Values"  FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="167" Grid.Column="1" Canvas.Left="9" Canvas.Top="227"/>
+
+    </Canvas>
+
+</UserControl>

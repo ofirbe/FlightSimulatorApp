@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="FlightSimulatorApp.Views.ControlPlane"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FlightSimulatorApp.Views"
+             mc:Ignorable="d" Height="200" Width="250">
+    <Viewbox >
+        <Grid Width="665" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="267*"/>
+                <RowDefinition Height="268*"/>
+            </Grid.RowDefinitions>
+            <Slider Name="Aileron_Slider" Minimum="-1" Maximum="1" Value="{Binding VM_Aileron}" Margin="1,22,0,221.4" TickPlacement="BottomRight" TickFrequency="0.1" Foreground="Red" />
+            <Slider Name="Throttle_Slider" Orientation="Vertical" Minimum="0" Maximum="1" Value="{Binding VM_Throttle}" HorizontalAlignment="Right" Margin="0,44,-44,19.8" TickPlacement="TopLeft" TickFrequency="0.1" Width="44" Grid.RowSpan="2" Foreground="Red"/>
+            <Viewbox Margin="10,86,229.4,10.2" Grid.RowSpan="2">
+                <local:Joystick x:Name="myJoystick" Xval="{Binding VM_Elevator, Mode=OneWayToSource}" Yval="{Binding VM_Rudder, Mode=OneWayToSource}" Height="346" Width="343"/>
+            </Viewbox>
+
+            <TextBlock Name="Aileron_txt" Text="{Binding ElementName=Aileron_Slider, Path=Value}" FontSize="18" Margin="546,117.6,2,154.8" Grid.Row="1" Foreground="Red"/>
+            <TextBlock x:Name="Rudder_txt" Text="{Binding Yval, ElementName=myJoystick}" FontSize="18" Margin="546,188.6,19,88.8" Grid.Row="1" Foreground="Red"/>
+            <TextBlock x:Name="Elevator_txt" Text="{Binding Xval, ElementName=myJoystick}" FontSize="18" Margin="546,218.6,26,52.8" Grid.Row="1" RenderTransformOrigin="0.5,0.5" Foreground="Red"/>
+            <TextBlock Name="Throttle_txt" Text="{Binding ElementName=Throttle_Slider, Path=Value}" FontSize="18" Margin="546,152.6,3,126" Grid.Row="1" Foreground="Red"/>
+
+            <StackPanel HorizontalAlignment="Left" Height="159" Margin="449,112.6,0,0" VerticalAlignment="Top" Width="97" Grid.Row="1">
+                <Label Content="Aileron:" FontSize="18" Foreground="Red"/>
+                <Label Content="Throttle:" FontSize="18" Foreground="Red" />
+                <Label Content="Rudder:" FontSize="18" Foreground="Red"/>
+                <Label Content="Elevator:" FontSize="18" Foreground="Red"/>
+            </StackPanel>
+
+        </Grid>
+    </Viewbox>
+</UserControl>

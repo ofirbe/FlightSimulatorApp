@@ -1,12 +1,42 @@
-﻿<Window x:Class="FlightSimulatorApp.MainWindow"
+﻿<Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FlightSimulatorApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        xmlns:uc="clr-namespace:FlightSimulatorApp"
+        xmlns:Controls="clr-namespace:FlightSimulatorApp.Views"    
+        xmlns:Views="clr-namespace:FlightSimulatorApp.Views"
+        xmlns:Model="clr-namespace:FlightSimulatorApp.Model"    
+        x:Class="FlightSimulatorApp.MainWindow"
+        mc:Ignorable="d"    
+        Title="MainWindow" Height="350" Width="800">
+
+    <Grid HorizontalAlignment="Left" Height="312" VerticalAlignment="Top" Width="800" Margin="0,0,-8,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="323*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="499*"/>
+            <ColumnDefinition Width="815*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images\airplain2.jpg"/>
+        </Grid.Background>
+
+        <Button  FontSize="16" Click="Button_Click" Margin="73,172,124,103.2" Background="White">Connect</Button>
+        <Button  FontSize="16" Click="Button_Click1" Margin="206,172,487,103.2" Background="White" Grid.ColumnSpan="2">Close</Button>
+
+        <TextBox x:Name="IPTextbox" TextAlignment="Center" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" IsReadOnly="False" Margin="127,43,0,0"/>
+        <Label FontSize="28" Content="IP" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,30,0,0" Width="44" Height="44"/>
+        <TextBox x:Name="PortTextbox" TextAlignment="Center" HorizontalAlignment="Left" Height="21" TextWrapping="Wrap" VerticalAlignment="Top" Width="147" IsReadOnly="False" Margin="128,105,0,0"/>
+        <Label FontSize="28" Content="Port" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="44,93,0,0" Width="73"/>
+
+        <Label Content="Connection Error"  FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Top" Height="34" Width="167" Grid.Column="1" Canvas.Left="9" Canvas.Top="96" Margin="259,259,0,0"/>
+        <Ellipse x:Name="errorLight" Stroke="Black" Fill="{Binding VM_ConnectionError}" HorizontalAlignment="Left" StrokeThickness="2"  Height="34" VerticalAlignment="Top" Width="30" Grid.Column="1" Canvas.Left="216" Canvas.Top="98" Margin="431,259,0,0">
+            <Ellipse.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="LightBlue" BlurRadius="25" />
+            </Ellipse.Effect>
+        </Ellipse>
     </Grid>
 </Window>
