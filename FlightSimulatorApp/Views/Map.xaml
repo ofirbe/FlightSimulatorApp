@@ -20,7 +20,7 @@
     <Grid Margin="0,-8,0,7.6">
         <m:Map  x:Name="myMap" CredentialsProvider="ArIV80TwtHzCNdowA7SlslkjlK_jHGJUZqbuC9pWVzkJ9wjeHwiFHWkMOcZG1N8U" Mode="AerialWithLabels" Center="32.002644, 34.888781" ZoomLevel="12" Margin="-4,0,4,-1" >
             <m:Pushpin x:Name="myPushpin" Location="{Binding VM_Location}">
-            </m:Pushpin>            
+            </m:Pushpin>
         </m:Map>
     </Grid>
 </UserControl>

@@ -62,6 +62,7 @@ namespace FlightSimulatorApp
             if (isSucceed == 1)
             {
                 this.vm.model.start();
+                this.vm.model.startQueue();
                 AppWindow app = new AppWindow(model, this, this.vm);
                 app.Show();
                 this.Hide();

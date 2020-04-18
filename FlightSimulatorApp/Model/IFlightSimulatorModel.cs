@@ -14,6 +14,7 @@ namespace FlightSimulatorApp.Model
         int connect(string ip, int port);
         void disconnect();
         void start();
+        void startQueue();
 
         // Map properties
         Location Location { get; set; }

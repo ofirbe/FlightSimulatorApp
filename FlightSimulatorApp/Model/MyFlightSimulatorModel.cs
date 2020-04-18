@@ -21,6 +21,7 @@ namespace FlightSimulatorApp.Model
         private ITelnetClient telnetClientHandler;
         private bool isConnected;
         private Queue<string> setCommandsQueue = new Queue<string>();
+        private Mutex mutex = new Mutex();
 
         // Map
         private Location location = null;
@@ -344,6 +345,9 @@ namespace FlightSimulatorApp.Model
                     string tmp = "";
                     try
                     {
+                        // lock the thread
+                        mutex.WaitOne();
+
                         // get the Heading
                         this.telnetClientHandler.write("get /instrumentation/heading-indicator/indicated-heading-deg\n");
                         tmp = this.telnetClientHandler.read();
@@ -426,6 +430,9 @@ namespace FlightSimulatorApp.Model
                         else
                             isValidLoc = false;
 
+                        // unlock the thread
+                        mutex.ReleaseMutex();
+
                         if (isValidLoc == true)
                         {
                             // back up for checking errors
@@ -459,6 +466,9 @@ namespace FlightSimulatorApp.Model
                             // clearing the buffer by getting the value
                             tmp = this.telnetClientHandler.read();
 
+                            // unlock the thread
+                            mutex.ReleaseMutex();
+
                             // set the light on
                             this.TimeOutError = "Yellow";
 
@@ -469,25 +479,10 @@ namespace FlightSimulatorApp.Model
                         {
                             this.ConnectionError = "Blue";
 
+                            // unlock the thread
+                            mutex.ReleaseMutex();
+
                             // disconnect in case of error
-                            this.disconnect();
-                        }
-                    }
-
-                    // execute the command in the command list
-                    while (this.setCommandsQueue.Count != 0)
-                    {
-                        try
-                        {
-                            string cmd = this.setCommandsQueue.Dequeue();
-                            this.telnetClientHandler.write(cmd);
-                            this.readbackGarbage = double.Parse(this.telnetClientHandler.read());
-                        }
-                        catch
-                        {
-                            this.SendingMessageError = "Green";
-
-                            // disconnect from the server
                             this.disconnect();
                         }
                     }
@@ -513,6 +508,47 @@ namespace FlightSimulatorApp.Model
                 }
             }).Start();
         }
+
+        /*
+         * The method sets the values to the simulator, in different thread that runs as long as the server is connteced.
+         */
+        public void startQueue()
+        {
+            new Thread(delegate ()
+            {
+                while (isConnected == true)
+                {
+                    // execute the command in the command list
+                    while (this.setCommandsQueue.Count != 0)
+                    {
+                        try
+                        {
+                            // lock the thread
+                            mutex.WaitOne();
+
+                            string cmd = this.setCommandsQueue.Dequeue();
+                            this.telnetClientHandler.write(cmd);
+                            this.readbackGarbage = double.Parse(this.telnetClientHandler.read());
+
+                            // unlock the thread
+                            mutex.ReleaseMutex();
+                        }
+                        catch
+                        {
+                            this.SendingMessageError = "Green";
+
+                            // unlock the thread
+                            mutex.ReleaseMutex();
+
+                            // disconnect from the server
+                            this.disconnect();
+                        }
+                    }
+                    Thread.Sleep(250);
+                }
+            }).Start();
+        }
+
 
         /*
          * The method connect to the server by using the telnet client
